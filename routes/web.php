@@ -12,3 +12,4 @@ Route::get('/', function () {
 Route::get('/level', [LevelController::class, 'index'])->name('level.index');
 Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
 Route::get('/user', [UserController::class, 'index'])->name('user.index');
+
