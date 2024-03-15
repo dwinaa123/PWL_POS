@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\LevelModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo; // Tambahkan ini untuk mengimpor namespace BelongsTo
 
 class UserModel extends Model
 {
@@ -19,4 +21,9 @@ class UserModel extends Model
      * @var array
      *  */
     protected $fillable = ['level_id', 'username', 'nama', 'password' ];
+
+    public function level(): BelongsTo // Ganti BelongsTo dengan huruf besar
+    {
+        return $this->belongsTo(LevelModel::class, 'level_id', 'level_id'); // Ganti belongTo dengan huruf kecil
+    }
 }
