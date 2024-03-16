@@ -20,18 +20,32 @@ class KategoriDataTable extends DataTable
      * @param QueryBuilder $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
-    {
-        return (new EloquentDataTable($query))
-/*             ->addColumn('action', 'kategori.action') */
-            ->setRowId('id');
+{
+    return (new EloquentDataTable($query))
+        ->addColumn('actions', function ($kategori) {
+            return '<a href="' . route('kategori.update', ['id' => $kategori->kategori_id]) . '" class="btn btn-primary mr-2">
+                        <i class="fa fa-pencil-alt" style="color: white; font-size: 12px;"></i>
+                    </a>
+                    <form method="POST" action="' . route('kategori.delete', ['id' => $kategori->kategori_id]) . '"  onsubmit="return confirm(\'Apakah Kamu Yakin Ingin Menghapus Data Ini?\');">
+                        ' . csrf_field() . '
+                        ' . method_field('DELETE') . '
+                        <button type="submit" class="btn btn-danger mr-2">
+                            <i class="fa fa-trash" style="color: white; font-size: 12px;"></i>
+                        </button>
+                    </form>';
+        })
+        ->rawColumns(['actions'])
+        ->setRowId('id');
     }
+    
+
 
     /**
      * Get the query source of dataTable.
      */
     public function query(KategoriModel $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->orderBy('kategori_id', 'asc');
     }
 
     /**
@@ -72,6 +86,12 @@ class KategoriDataTable extends DataTable
             Column::make('nama'),
             Column::make('created_at'),
             Column::make('updated_at'),
+            Column::computed('actions')
+    ->exportable(false)
+    ->printable(false)
+    ->width(100)
+    ->addClass('text-center'),
+
         ];
     }
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\KategoriModel;
 use Illuminate\Http\Request;
-//use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 use App\DataTables\KategoriDataTable;
 
 class KategoriController extends Controller
@@ -44,4 +44,30 @@ public function store(Request $request)
     return redirect('/kategori');
 
 }
+public function update($id, Request $request)
+{
+    $kategori = KategoriModel::find($id);
+    return view('kategori.kategori_update', ['data' => $kategori]);
+}
+
+
+public function update_simpan($id, Request $request)
+{
+    $kategori = KategoriModel::find($id);
+    $kategori->kategori_kode = $request->kodeKategori; // Ubah dari 'kodekategori' menjadi 'kodeKategori'
+    $kategori->nama = $request->namaKategori;
+
+    $kategori->save();
+
+    return redirect('/kategori');
+}
+public function delete($id)
+{
+    KategoriModel::destroy($id);
+    return redirect('/kategori');
+}
+
+
+
+
 }

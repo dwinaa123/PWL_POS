@@ -301,6 +301,11 @@ return [
             'topnav_right' => true,
         ],
         [
+            'text' => 'Kategori',
+            'url' => '/kategori',
+            'icon' => 'far fa-fw fa-list-alt',
+        ],
+        [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
