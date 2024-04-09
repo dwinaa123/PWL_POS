@@ -23,14 +23,14 @@ class KategoriDataTable extends DataTable
 {
     return (new EloquentDataTable($query))
         ->addColumn('actions', function ($kategori) {
-            return '<a href="' . route('kategori.update', ['id' => $kategori->kategori_id]) . '" class="btn btn-primary mr-2">
-                        <i class="fa fa-pencil-alt" style="color: white; font-size: 12px;"></i>
+            return '<a href="' . route('kategori.update', ['id' => $kategori->kategori_id]) . '" class="btn btn-warning mr-2">
+                        <i class="fas fa-edit" style="color: black; font-size: 12px;"></i>
                     </a>
                     <form method="POST" action="' . route('kategori.delete', ['id' => $kategori->kategori_id]) . '"  onsubmit="return confirm(\'Apakah Kamu Yakin Ingin Menghapus Data Ini?\');">
                         ' . csrf_field() . '
                         ' . method_field('DELETE') . '
                         <button type="submit" class="btn btn-danger mr-2">
-                            <i class="fa fa-trash" style="color: white; font-size: 12px;"></i>
+                            <i class="fa fa-trash" style="color: black; font-size: 12px;"></i>
                         </button>
                     </form>';
         })

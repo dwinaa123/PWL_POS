@@ -5,8 +5,8 @@
     </head>
         <body>
             <h1>Form Tambah Data User</h1>
-            <form action="{{ route('user.simpan') }}" method="POST">
-                {{@csrf_field()}}
+            <form method="POST" action="{{ route ('user.tambah_simpan') }}">
+                {{ csrf_field() }}
 
                 <label>Username</label>
                 <input type="text" name="username" placeholder="Masukan Username">

@@ -305,6 +305,19 @@ return [
             'url' => '/kategori',
             'icon' => 'far fa-fw fa-list-alt',
         ],
+
+        [
+            'text' => ' User',
+            'url' => '/user',
+            'icon' => 'far fa-smile',
+            'label_color' => 'success'
+        ],
+        [
+            'text' => ' Level',
+            'url' => '/level',
+            'icon' => 'fas fa-align-center',
+            'label_color' => 'success'
+        ],
         [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
