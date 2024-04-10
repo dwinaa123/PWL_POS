@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('m_user')) {
-        Schema::create('m_user', function (Blueprint $table) {
+        //if (!Schema::hasTable('m_user')) {
+        Schema::create('useri', function (Blueprint $table) {
             $table->id('user_id');
-            $table->unsignedBigInteger('level_id')->index();
+            $table->unsignedBigInteger('level_id')->index;
             $table->string('username', 20)->unique();
             $table->string('nama', 100);
             $table->string('password');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreign('level_id')->references('level_id')->on('m_level');
         });
     }
-    }
+    //}
 
     /**
      * Reverse the migrations.

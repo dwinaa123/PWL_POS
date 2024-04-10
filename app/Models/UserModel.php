@@ -1,16 +1,19 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\LevelModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo; // Tambahkan ini untuk mengimpor namespace BelongsTo
+
 class UserModel extends Model
 {
     use HasFactory;
 
     protected $table = 'm_user';
     protected $primaryKey = 'user_id';
-    
+    //protected $fillable = ['level_id', 'username', 'nama', 'password'];
     /** 
      * the attributes that are mass assignable
      * 

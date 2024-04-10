@@ -319,6 +319,12 @@ return [
             'label_color' => 'success'
         ],
         [
+            'text' => ' M_user',
+            'url' => '/m_user',
+            'icon' => 'fas fa-fw fa-thin fa-user-secret',
+            'label_color' => 'success'
+        ],
+        [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
