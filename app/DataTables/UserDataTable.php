@@ -30,12 +30,13 @@ class UserDataTable extends DataTable
                     </a>
             <form method="POST" action="' . route('user.delete', ['id' => $user->user_id]) . '"  onsubmit="return confirm(\'Apakah Kamu Yakin Ingin Menghapus Data Ini?\');">
                         ' . csrf_field() . '
-                        ' . method_field('GET') . '
+                        ' . method_field('DELETE') . '
                         <button type="submit" class="btn btn-danger mr-2">
                             <i class="fa fa-trash" style="color: black; font-size: 12px; "></i>
                         </button>
                     </form>';
     })
+    ->rawColumns(['aksi'])
     ->setRowId('id');
 }
 
