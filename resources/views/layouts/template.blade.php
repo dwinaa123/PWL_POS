@@ -23,6 +23,14 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
 
+    <!-- Tambahkan CSS untuk latar belakang pink pastel -->
+    <style>
+        /* Gaya CSS khusus untuk halaman daftar user */
+        .user-list-page {
+            background-color: #FFD1DC; /* Warna pink pastel */
+        }
+    </style>
+
     @stack('css')
 </head>
 
@@ -47,7 +55,7 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper user-list-page">
             <!-- Content Header (Page header) -->
             @include('layouts.breadcrumb')
 
@@ -93,7 +101,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-    </script>
     </script>
 
     @stack('js')

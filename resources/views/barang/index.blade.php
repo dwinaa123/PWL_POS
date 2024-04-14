@@ -5,7 +5,9 @@
     <div class="card card-outline card-primary">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h3 class="card-title">{{ $page->title }}</h3>
-            <a class="btn btn-sm btn-primary ml-auto" href="{{ url('level/create') }}">Tambah</a>
+            <a class="btn btn-sm btn-primary ml-auto" href="{{ url('barang/create') }}">
+                <i class="fas fa-plus"></i> Tambah Barang
+            </a>
         </div>
         <div class="card-body">
             @if(session('success'))
@@ -14,30 +16,35 @@
             @if(session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
+            
             <div class="row mb-3">
                 <div class="col-md-12">
                     <div class="form-group row align-items-center">
                         <label class="col-1 control-label col-form-label">Filter:</label>
                         <div class="col-3">
-                            <select name="level_id" id="level_id" class="form-control" required>
+                            <select name="kategori_id" id="kategori_id" class="form-control">
                                 <option value="">- Semua -</option>
-                                @foreach ($level as $item)
-                                    <option value="{{ $item->level_id }}">{{ $item->level_nama }}</option>
+                                @foreach ($kategori as $item)
+                                    <option value="{{ $item->kategori_id }}">{{ $item->nama }}</option>
                                 @endforeach
                             </select>
-                            <small class="form-text text-muted">Level Pengguna</small>
+                            <small class="form-text text-muted">Kategori Barang</small>
                         </div>
                     </div>
                 </div>
             </div>
+            
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover table-sm" id="table_level">
+                <table class="table table-striped table-bordered table-hover table-sm" id="table_barang">
                     <thead>
                         <tr>
-                            <th style="width: 10%;">ID</th>
-                            <th style="width: 10%;">Kode Level</th>
-                            <th style="width: 20%;">Nama Level</th>
-                            <th style="width: 30%;">Aksi</th>
+                            <th>ID</th>
+                            <th>Kode Barang</th>
+                            <th>Nama Barang</th>
+                            <th>Kategori</th>
+                            <th>Harga Beli</th>
+                            <th>Harga Jual</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,25 +60,29 @@
 @push('js')
 <script>
     $(document).ready(function() {
-        var dataLevel = $('#table_level').DataTable({
+        var dataBarang = $('#table_barang').DataTable({
             serverSide: true,
             ajax: {
-                url: "{{ url('level/list') }}",
+                url: "{{ url('barang/list') }}",
                 type: "POST",
                 data: function (d) {
-                    d.level_id = $('#level_id').val();
+                    d.kategori_id = $('#kategori_id').val();
                 }
             },
             columns: [
                 { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
-                { data: "level_kode", className: "", orderable: true, searchable: true },
-                { data: "level_nama", className: "", orderable: true, searchable: true },
-                { data: "aksi", className: "", orderable: false, searchable: false }
+                { data: "barang_kode", className: "text-center", orderable: true, searchable: true },
+                { data: "barang_nama", className: "text-center", orderable: true, searchable: true },
+                { data: "kategori.nama", className: "text-center", orderable: true, searchable: true },
+                { data: "harga_beli", className: "text-center", orderable: true, searchable: true },
+                { data: "harga_jual", className: "text-center", orderable: true, searchable: true },
+                { data: "aksi", className: "text-center", orderable: false, searchable: false }
             ]
         });
 
-        $('#level_id').on('change', function() {
-            dataLevel.ajax.reload();
+        // Reload data table when filter changes
+        $('#kategori_id').on('change', function() {
+            dataBarang.ajax.reload();
         });
     });
 </script>
