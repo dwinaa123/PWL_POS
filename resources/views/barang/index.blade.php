@@ -60,30 +60,31 @@
 @push('js')
 <script>
     $(document).ready(function() {
-        var dataBarang = $('#table_barang').DataTable({
-            serverSide: true,
-            ajax: {
-                url: "{{ url('barang/list') }}",
-                type: "POST",
-                data: function (d) {
-                    d.kategori_id = $('#kategori_id').val();
-                }
-            },
-            columns: [
-                { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
-                { data: "barang_kode", className: "text-center", orderable: true, searchable: true },
-                { data: "barang_nama", className: "text-center", orderable: true, searchable: true },
-                { data: "kategori.nama", className: "text-center", orderable: true, searchable: true },
-                { data: "harga_beli", className: "text-center", orderable: true, searchable: true },
-                { data: "harga_jual", className: "text-center", orderable: true, searchable: true },
-                { data: "aksi", className: "text-center", orderable: false, searchable: false }
-            ]
-        });
-
-        // Reload data table when filter changes
-        $('#kategori_id').on('change', function() {
-            dataBarang.ajax.reload();
-        });
+    var dataBarang = $('#table_barang').DataTable({
+        serverSide: true,
+        ajax: {
+            url: "{{ url('barang/list') }}",
+            type: "POST",
+            data: function (d) {
+                d.kategori_id = $('#kategori_id').val();
+            }
+        },
+        columns: [
+            { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
+            { data: "barang_kode", className: "text-center", orderable: true, searchable: true },
+            { data: "barang_nama", className: "text-center", orderable: true, searchable: true },
+            { data: "kategori.nama", className: "text-center", orderable: true, searchable: true },
+            { data: "harga_beli", className: "text-center", orderable: true, searchable: true },
+            { data: "harga_jual", className: "text-center", orderable: true, searchable: true },
+            { data: "aksi", className: "text-center", orderable: false, searchable: false }
+        ]
     });
+
+    // Reload data table when filter changes
+    $('#kategori_id').on('change', function() {
+        dataBarang.ajax.reload();
+    });
+});
+
 </script>
 @endpush

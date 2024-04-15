@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Query\Builder;
 use App\Models\KategoriModel;
 use App\Models\BarangModel;
 use Yajra\DataTables\Facades\DataTables;
@@ -29,30 +30,35 @@ class BarangController extends Controller
     }
 
     // Ambil data barang dalam bentuk json untuk datatables
-    public function list(Request $request)
-    {
-        $barangs = BarangModel::select('barang_id', 'kategori_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual')
-                ->with('kategori')
-                ->get();
+    // Ambil data barang dalam bentuk json untuk datatables
+public function list(Request $request)
+{
+    // Bangun query builder untuk model BarangModel
+    $query = BarangModel::select('barang_id', 'kategori_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual')
+                ->with('kategori');
 
-        // Filter data barang berdasarkan kategori_id
-        if ($request->kategori_id) {
-            $barangs->where('kategori_id', $request->kategori_id);
-        }
+    // Filter data barang berdasarkan kategori_id jika diberikan
+    if ($request->kategori_id) {
+        $query->where('kategori_id', $request->kategori_id);
+    }
 
-        return DataTables::of($barangs)
-            ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
-            ->addColumn('aksi', function ($barang) {
-                $btn = '<a href="'.url('/barang/' . $barang->barang_id).'" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="'.url('/barang/' . $barang->barang_id . '/edit').'" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="'. url('/barang/'.$barang->barang_id).'">'.
-                            csrf_field() . method_field('DELETE') .
-                            '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
-                return $btn;
+    // Kembalikan DataTables dengan hasil query yang difilter
+    return DataTables::of($query)
+        ->addIndexColumn() // Menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
+        ->addColumn('aksi', function ($barang) {
+            // Tambahkan kolom aksi
+            $btn = '<a href="'.url('/barang/' . $barang->barang_id).'" class="btn btn-info btn-sm">Detail</a> ';
+            $btn .= '<a href="'.url('/barang/' . $barang->barang_id . '/edit').'" class="btn btn-warning btn-sm">Edit</a>'; // Pastikan penutupan tanda kutip ganda dan titik koma di akhir pernyataan.
+            $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang/' . $barang->barang_id) . '">' .
+            csrf_field() . method_field('DELETE') .
+            '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+            return $btn;
             })
             ->rawColumns(['aksi'])
             ->make(true);
-    }
+            }
+
+                
 
     // Menampilkan halaman form tambah
     public function create()
