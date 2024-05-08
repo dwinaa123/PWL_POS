@@ -5,7 +5,7 @@
     <div class="card card-outline card-primary">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h3 class="card-title">{{ $page->title }}</h3>
-            <a class="btn btn-sm btn-primary ml-auto" href="{{ url('level/create') }}">Tambah</a>
+            <a class="btn btn-sm btn-primary ml-auto" href="{{ url('user/create') }}">Tambah</a>
         </div>
         <div class="card-body">
             @if(session('success'))
