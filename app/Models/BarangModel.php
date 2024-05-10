@@ -8,13 +8,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BarangModel extends Model
 {
+    use HasFactory;
+
     protected $table = 'm_barang';
     protected $primaryKey = 'barang_id';
     
-    protected $fillable = ['barang_id', 'kategori_id', 'barang_nama', 'barang_kode', 'harga_beli', 'harga_jual', 'created_at', 'update_at'];
+    protected $fillable = ['barang_id', 'kategori_id', 'barang_nama', 'barang_kode', 'harga_beli', 'harga_jual', 'created_at', 'updated_at', 'image'];
     
     public function kategori(): BelongsTo
     {
         return $this->belongsTo(KategoriModel::class, 'kategori_id', 'kategori_id');
+    }
+
+    public function getImageAttribute($image)
+    {
+        return url('/storage/posts/' . $image);
     }
 }

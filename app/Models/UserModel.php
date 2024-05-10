@@ -9,6 +9,7 @@ use App\Models\LevelModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class UserModel extends Authenticatable implements JWTSubject
@@ -17,7 +18,7 @@ class UserModel extends Authenticatable implements JWTSubject
     protected $primaryKey = 'user_id';
     
     // Atribut yang dapat diisi secara massal
-    protected $fillable = ['level_id', 'username', 'nama', 'password'];
+    protected $fillable = ['level_id', 'username', 'nama', 'password', 'image'];
 
     public function getJWTIdentifier(){
         return $this->getKey();
@@ -28,7 +29,7 @@ class UserModel extends Authenticatable implements JWTSubject
         return[];
     }
 
-    
+
     //use HasFactory; // Gunakan HasFactory trait bersama dengan Notifiable
 
     //protected $table = 'm_user';
@@ -38,9 +39,17 @@ class UserModel extends Authenticatable implements JWTSubject
     //protected $fillable = ['level_id', 'username', 'nama', 'password'];
 
     // Hubungan dengan model Level
-    public function level(): BelongsTo
+    public function level()
     {
         return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
+    }
+
+    protected function image(): Attribute
+
+    {
+        return Attribute::make(
+            get: fn ($image) => url('/storage/posts/' . $image),
+        );
     }
 
     public function stok(): HasMany
