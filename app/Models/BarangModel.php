@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class BarangModel extends Model
 {
@@ -20,8 +21,8 @@ class BarangModel extends Model
         return $this->belongsTo(KategoriModel::class, 'kategori_id', 'kategori_id');
     }
 
-    public function getImageAttribute($image)
-    {
-        return url('/storage/posts/' . $image);
-    }
+    //public function getImageAttribute($image)
+    //{
+        //return url('/storage/posts/' . $image);
+    //}
 }
